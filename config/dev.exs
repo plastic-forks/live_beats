@@ -2,7 +2,7 @@ import Config
 
 config :live_beats, :files,
   uploads_dir: Path.expand("../priv/uploads", __DIR__),
-  host: [scheme: "http", host: "localhost", port: 4000],
+  host: [scheme: "http", host: "localhost", port: String.to_integer(System.get_env("PORT") || "4000")],
   server_ip: "127.0.0.1",
   hostname: "localhost",
   transport_opts: []
@@ -16,7 +16,7 @@ config :live_beats, LiveBeats.Repo,
   username: "postgres",
   password: "postgres",
   database: "live_beats_dev",
-  hostname: "localhost",
+  hostname: "dev-box",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -25,7 +25,7 @@ config :live_beats, LiveBeats.ReplicaRepo,
   username: "postgres",
   password: "postgres",
   database: "live_beats_dev",
-  hostname: "localhost",
+  hostname: "dev-box",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10,
   priv: "priv/repo"
@@ -39,7 +39,7 @@ config :live_beats, LiveBeats.ReplicaRepo,
 config :live_beats, LiveBeatsWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {0, 0, 0, 0}, port: 4000],
+  http: [ip: {0, 0, 0, 0}, port: String.to_integer(System.get_env("PORT") || "4000")],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
